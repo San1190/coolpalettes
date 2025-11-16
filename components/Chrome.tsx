@@ -23,7 +23,7 @@ function saveFavorites(favs: Favorite[]) {
 export default function Chrome({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = useState<Favorite[]>([])
 
-  useEffect(() => { setFavorites(loadFavorites()) }, [])
+  useEffect(() => { setTimeout(() => setFavorites(loadFavorites()), 0) }, [])
   useEffect(() => { saveFavorites(favorites) }, [favorites])
 
   useEffect(() => {

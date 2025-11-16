@@ -1,6 +1,5 @@
 "use client"
 import { useEffect, useState, useCallback } from "react"
-import Link from "next/link"
 import { generatePalette, cycleFormat, type Fmt, bestText, normalizeColor } from "@/lib/colors"
 import tinycolor from "tinycolor2"
 
@@ -18,7 +17,7 @@ export default function Home() {
     setPalette(generatePalette({ mode, count: 5, base, locked }))
   }, [locked, baseInput, mode])
 
-  useEffect(() => { generate() }, [])
+  useEffect(() => { setTimeout(generate, 0) }, [])
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.code === "Space") { e.preventDefault(); generate() }
