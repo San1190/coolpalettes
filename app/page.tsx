@@ -27,6 +27,57 @@ export default function Home() {
     return () => window.removeEventListener("keydown", onKey)
   }, [generate])
 
+  useEffect(() => {
+    const onSetBase = (e: Event) => {
+      const ce = e as CustomEvent<{ value: string }>
+      setBaseInput(ce.detail?.value || "")
+      generate()
+    }
+    const onSetMode = (e: Event) => {
+      const ce = e as CustomEvent<{ value: string }>
+      const m = (ce.detail?.value || "analogous") as typeof mode
+      setMode(m)
+      generate()
+    }
+    const onToggleFmt = () => setFmt((f) => (f === "hex" ? "rgb" : f === "rgb" ? "hsl" : "hex"))
+    const onGenerate = () => generate()
+    const onSave = () => {
+      const slug = palette.map((c) => c.replace('#','')).join('-')
+      const ev = new CustomEvent('save-palette', { detail: { slug, colors: palette } })
+      window.dispatchEvent(ev)
+    }
+    const onShare = () => {
+      const slug = palette.map((c) => c.replace('#','')).join('-')
+      window.location.href = `/palette/${slug}`
+    }
+    window.addEventListener('cp:set-base', onSetBase as EventListener)
+    window.addEventListener('cp:set-mode', onSetMode as EventListener)
+    window.addEventListener('cp:toggle-format', onToggleFmt)
+    window.addEventListener('cp:generate', onGenerate)
+    window.addEventListener('cp:save', onSave)
+    window.addEventListener('cp:share', onShare)
+    document.addEventListener('cp:set-base', onSetBase as EventListener)
+    document.addEventListener('cp:set-mode', onSetMode as EventListener)
+    document.addEventListener('cp:toggle-format', onToggleFmt as EventListener)
+    document.addEventListener('cp:generate', onGenerate as EventListener)
+    document.addEventListener('cp:save', onSave as EventListener)
+    document.addEventListener('cp:share', onShare as EventListener)
+    return () => {
+      window.removeEventListener('cp:set-base', onSetBase as EventListener)
+      window.removeEventListener('cp:set-mode', onSetMode as EventListener)
+      window.removeEventListener('cp:toggle-format', onToggleFmt)
+      window.removeEventListener('cp:generate', onGenerate)
+      window.removeEventListener('cp:save', onSave)
+      window.removeEventListener('cp:share', onShare)
+      document.removeEventListener('cp:set-base', onSetBase as EventListener)
+      document.removeEventListener('cp:set-mode', onSetMode as EventListener)
+      document.removeEventListener('cp:toggle-format', onToggleFmt as EventListener)
+      document.removeEventListener('cp:generate', onGenerate as EventListener)
+      document.removeEventListener('cp:save', onSave as EventListener)
+      document.removeEventListener('cp:share', onShare as EventListener)
+    }
+  }, [generate, palette])
+
   return (
     <div className="h-[calc(100vh-3rem)] w-full grid grid-cols-5 font-sans overflow-hidden">
       {palette.map((hex, i) => {

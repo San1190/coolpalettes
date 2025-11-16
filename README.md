@@ -2,7 +2,7 @@
 
 Generador de paletas armónicas ultra-rápido. Pulsa `Space` para crear combinaciones, haz clic para copiar, bloquea colores y comparte la paleta por URL.
 
-- Live: https://TU_DOMINIO.vercel.app
+- Live: https://coolpalettes.vercel.app
 - Repositorio: https://github.com/TU_USUARIO/coolpalettes
 
 ## Características

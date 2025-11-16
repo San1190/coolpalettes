@@ -72,7 +72,7 @@ export default function Chrome({ children }: { children: React.ReactNode }) {
       </aside>
       <nav className="fixed left-64 right-0 top-0 h-12 bg-zinc-950/80 backdrop-blur flex items-center px-4 text-white border-b border-zinc-800 z-50">
         <Link href="/" className="font-semibold">CoolPalettes</Link>
-        <div className="ml-auto flex items-center gap-3">
+        <div className="ml-auto flex items-center gap-3 overflow-x-auto">
           <input
             placeholder="#34D399 o red o rgb(52,211,153)"
             className="text-xs px-2 py-1 rounded-md bg-white/10 border border-white/15 text-white placeholder:text-white/60"
